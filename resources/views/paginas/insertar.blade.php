@@ -20,18 +20,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="lanzamiento" class="form-label">Fecha de lanzamiento:</label>
-            <input type="date" class="form-control" id="lanzamiento" name="lanzamiento" required="required">
-        </div>
-
-        <div class="mb-3">
-            <label for="creacion" class="form-label">Fecha de creación:</label>
-            <input type="date" class="form-control" id="creacion" name="creacion" required="required">
-        </div>
-
-        <div class="mb-3">
-            <label for="actualizacion" class="form-label">Fecha de última actualización:</label>
-            <input type="date" class="form-control" id="actualizacion" name="actualizacion" required="required">
+            <label for="lanzamiento" class="form-label">Año de lanzamiento:</label>
+            <input type="number" class="form-control" id="lanzamiento" name="lanzamiento" required="required">
         </div>
 
         <div class="text-center">

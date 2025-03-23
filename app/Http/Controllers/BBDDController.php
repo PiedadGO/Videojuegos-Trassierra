@@ -25,11 +25,9 @@ class BBDDController extends Controller
         DB::table('videojuegos')->insert([
             'nombre' => $request->input('titulo'),
             'desarrollador' => $request->input('desarrollador'),
-            'fecha_lanzamiento' => $request->input('lanzamiento'),
-            'created_at' => $request->input('creacion'),
-            'updated_at' =>  $request->input('actualizacion'),
-            //'created_at' => now(),
-            //'updated_at' =>  now(),
+            'anio_lanzamiento' => $request->input('lanzamiento'),
+            'created_at' => now(),
+            'updated_at' =>  now(),
         ]);
 
         return redirect()->route('mostrar-videojuegos');

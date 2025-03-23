@@ -25,7 +25,7 @@
                         <tr>
                             <td>{{ $videojuego->nombre }}</td>
                             <td>{{ $videojuego->desarrollador }}</td>
-                            <td>{{ $videojuego->fecha_lanzamiento }}</td>
+                            <td>{{ $videojuego->anio_lanzamiento }}</td>
                             <td>{{ $videojuego->created_at }}</td>
                             <td>{{ $videojuego->updated_at }}</td>
                         </tr>
