@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RutaController;
 use App\Http\Controllers\BBDDController;
+use App\Http\Controllers\EloquentController;
 
 
 /*
@@ -31,5 +32,7 @@ Route::get('/videojuegos', [BBDDController::class, 'catalogo'])->name('mostrar-v
 
 //Añadir
 Route::get('/agregar', [BBDDController::class, 'crear']) ->name('anadir');
-
 Route::post('/agregar', [BBDDController::class, 'almacenar']) ->name('guardar-juego');
+
+//Géneros
+Route::get('/generos', [EloquentController::class, 'tipo'])->name('generos');

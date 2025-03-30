@@ -20,6 +20,10 @@
                     <a class="nav-link border-end border-2 px-3" href="{{ route('anadir') }}">Añadir</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link border-end border-2 px-3" href="{{ route('generos') }}">Géneros</a>
+                </li>
+                
+                <li class="nav-item">
                     <a class="nav-link border-end border-2 px-3" href="{{ route('sobre-nosotros') }}">Sobre nosotros</a>
                 </li>
             </ul>

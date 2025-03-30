@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Generator;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(VideojuegosSeeder::class);
+        $this->call(GeneroSeeder::class);
+        $this->call(VideojuegosGenerosSeeder::class);
     }
 }
