@@ -74,7 +74,6 @@ class CRUDController extends Controller
     public function editForm()
     {
         $videojuegos = Videojuego::all();
-
         return view('paginas.seleccionar-videojuego', ['videojuegos' => $videojuegos]);
     }
 
@@ -83,16 +82,16 @@ class CRUDController extends Controller
      */
     public function editElement(Request $request)
     {
-        $request-> validate([
-            'vj_id' =>'required|integer|min:1'
+        $request->validate([
+            'vj_id' => 'required|integer|min:1'
         ]);
-        $id= $request-> input('vj_id');
+        $id = $request->input('vj_id');
         $videojuego = Videojuego::findOrFail($id);
         return view('paginas.editar-videojuego', ['videojuego' => $videojuego]);
-
     }
 
-    public function updateElement(Request $request, Videojuego $videojuego ){
+    public function updateElement(Request $request, Videojuego $videojuego)
+    {
         $request->validate([
             'titulo' => 'required|max:225',
             'desarrollador' => 'required|max:225',
@@ -103,13 +102,39 @@ class CRUDController extends Controller
         $videojuego->desarrollador = $request->input('desarrollador');
         $videojuego->anio_lanzamiento = $request->input('anio_lanzamiento');
 
-        $videojuego ->save();
+        $videojuego->save();
 
-        return view ('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
+        return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
         //return redirect()->route('videojuego.edit.select', $videojuego->id)->with('success', 'Videojuego actualizado correctamente');
+    }
 
+    /**
+     * 
+     */
+    public function destroyselect()
+    {
+        $videojuegos = Videojuego::all();
+        return view('paginas.seleccionar-borrar', ['videojuegos' => $videojuegos]);
+    }
+
+    /**
+     * 
+     */
+    public function destroyById(Request $request)
+    {
+        $request->validate([
+            'vj_id' => 'required|integer|min:1'
+        ]);
+        $id = $request->input('vj_id');
+        $videojuego = Videojuego::findOrFail($id);
+
+        $videojuego->delete();
+
+        return redirect()->route('inicio')
+            ->with('success', 'Videojuego eliminado correctamente.');
     }
 
 
 
+    
 }

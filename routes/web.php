@@ -45,6 +45,5 @@ Route::put('/videojuego/{videojuego}', [CRUDController::class, 'updateElement'])
 
 
 //Borrar
-Route::get('/borrar', [CRUDController::class, 'destroyselect'])->name('borrar');
-Route::post('/borrar', [CRUDController::class, 'destroy'])->name('borrar');
-
+Route::get('/videojuego/delete/select', [CRUDController::class, 'destroyselect'])->name('videojuego.delete.select');
+Route::post('/videojuego/delete/select', [CRUDController::class, 'destroyById'])->name('videojuego.delete.select.submit');

@@ -1,19 +1,19 @@
 @extends('plantillas.base')
 
-@section('titulo', 'Editar')
+@section('titulo', 'Borrar')
 
 @section('contenido')
     <div class="text-center my-4">
-        <h2 class="fw-bold">Editar videojuego</h2>
+        <h2 class="fw-bold">Borrar videojuego</h2>
     </div>
 
     <div class="container d-flex justify-content-center">
         @if (count($videojuegos) > 0)
-            <form action='{{ route('videojuego.edit.select.submit') }}' method='POST'
+            <form action='{{ route('videojuego.delete.select.submit') }}' method='POST'
                 class="bg-light p-4 rounded-4 w-50 mt-5">
                 @csrf
                 <div class="row">
-                        <label for='vj_id' class='form-label mb-3 fs-5'>Videojuego a editar:</label>
+                        <label for='vj_id' class='form-label mb-3 fs-5'>Videojuego a borrar:</label>
                         <select id='vj_id' name='vj_id' class='form-select' required>
                             @foreach ($videojuegos as $videojuego)
                                 <option value="{{ $videojuego->id }}">{{ $videojuego->id }} - {{ $videojuego->nombre }}
