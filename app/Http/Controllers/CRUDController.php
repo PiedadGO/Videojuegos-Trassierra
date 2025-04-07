@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Videojuego;
 use Ramsey\Uuid\Type\Integer;
+use Illuminate\Support\Carbon;
 
 class CRUDController extends Controller
 {
@@ -92,10 +93,17 @@ class CRUDController extends Controller
 
     public function updateElement(Request $request, Videojuego $videojuego)
     {
+        $anioActual = Carbon::now()->year;
+
         $request->validate([
-            'titulo' => 'required|max:225',
-            'desarrollador' => 'required|max:225',
-            'anio_lanzamiento' => 'required|digits:4'
+            'titulo' => 'required|max:100', // 100 caracteres
+            'desarrollador' => 'required|max:50', // 50 caracteres
+            'anio_lanzamiento' => [ //entero de 4 dígitos que no exceda al año actual
+                'required',
+                'digits:4',
+                'integer',
+                'max:' . $anioActual
+            ]
         ]);
 
         $videojuego->nombre = $request->input('titulo');
@@ -104,8 +112,17 @@ class CRUDController extends Controller
 
         $videojuego->save();
 
-        return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
-        //return redirect()->route('videojuego.edit.select', $videojuego->id)->with('success', 'Videojuego actualizado correctamente');
+        //return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
+        //return redirect()->route('inicio', $videojuego->id)->with('success', "Videojuego $videojuego->nombre actualizado correctamente");
+        if ($videojuego->save()) {
+            return redirect()
+                ->route('inicio', $videojuego->id)
+                ->with('success', "Videojuego $videojuego->nombre actualizado correctamente.");
+        } else {
+            return redirect()
+                ->route('inicio')
+                ->with('failure', "Hubo un problema al actualizar el videojuego.");
+        }
     }
 
     /**
@@ -131,10 +148,6 @@ class CRUDController extends Controller
         $videojuego->delete();
 
         return redirect()->route('inicio')
-            ->with('success', 'Videojuego eliminado correctamente.');
+            ->with('success', "Videojuego $videojuego->nombre eliminado correctamente.");
     }
-
-
-
-    
 }

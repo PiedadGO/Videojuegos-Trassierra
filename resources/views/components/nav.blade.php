@@ -43,7 +43,7 @@
                         <a class="nav-link border-end border-2 px-3" href="">Iniciar sesión</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link px-3" href="">Regístrate</a>
+                        <a class="nav-link px-3" href="">Registrar usuario</a>
                     </li>
 
                 </ul>
