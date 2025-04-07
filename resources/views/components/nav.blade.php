@@ -20,7 +20,14 @@
                     <a class="nav-link border-end border-2 px-3" href="{{ route('anadir') }}">Añadir</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link border-end border-2 px-3" href="{{ route('generos') }}">Géneros</a>
+                    <a class="nav-link border-end border-2 px-3" href="{{ route('videojuego.edit.select') }}">Editar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link border-end border-2 px-3" href="{{ route('borrar')}}">Borrar</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link border-end border-2 px-3" href="{{ route('generos')}}">Géneros</a>
                 </li>
                 
                 <li class="nav-item">

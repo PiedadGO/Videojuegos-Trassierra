@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RutaController;
 use App\Http\Controllers\BBDDController;
 use App\Http\Controllers\EloquentController;
+use App\Http\Controllers\CRUDController;
 
 
 /*
@@ -36,3 +37,14 @@ Route::post('/agregar', [BBDDController::class, 'almacenar']) ->name('guardar-ju
 
 //Géneros
 Route::get('/generos', [EloquentController::class, 'tipo'])->name('generos');
+
+//Editar
+Route::get('/videojuego/edit/select', [CRUDController::class, 'editForm']) ->name('videojuego.edit.select'); //
+Route::post('/videojuego/edit/select', [CRUDController::class, 'editElement']) ->name('videojuego.edit.select.submit');
+Route::put('/videojuego/{videojuego}', [CRUDController::class, 'updateElement']) ->name('videojuego.update');
+
+
+//Borrar
+Route::get('/borrar', [CRUDController::class, 'destroyselect'])->name('borrar');
+Route::post('/borrar', [CRUDController::class, 'destroy'])->name('borrar');
+

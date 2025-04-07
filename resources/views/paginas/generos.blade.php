@@ -16,16 +16,16 @@
                 </thead>
                 <tbody>
                     @foreach ($generos as $genero)
-                        <tr>
-                            <td><strong>{{ $genero->nombre }}</strong></td>
-                            <td>
+                        <tr><!--fila-->
+                            <td class="fw-bold ps-5 pt-3">{{ $genero->nombre }}</td> <!-- columna nombre género-->
+                            <td> <!-- Columna todos los videojuegos que pertenecen a ese género-->
                                 <ul>
                                     @foreach ($genero->videojuegos as $videojuego)
-                                        <li>{{ $videojuego->nombre }}</li><br>
+                                        <li class="mt-2">{{ $videojuego->nombre }}</li>
                                     @endforeach
                                 </ul>
                             </td>
-                        </tr>
+                        </tr><!-- -->
                     @endforeach
                 </tbody>
             </table>
@@ -44,11 +44,11 @@
                 <tbody>
                     @foreach ($videojuegos as $videojuego)
                         <tr>
-                            <td><strong>{{ $videojuego->nombre }}</strong></td>
+                            <td class="fw-bold ps-5 pt-3">{{ $videojuego->nombre }}</td>
                             <td>
                                 <ul>
                                     @foreach ($videojuego->generos as $genero)
-                                        <li>{{ $genero->nombre }}</li><br>
+                                        <li class="mt-2">{{ $genero->nombre }}</li>
                                     @endforeach
                                 </ul>
                             </td>
