@@ -40,10 +40,10 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link border-end border-2 px-3" href="">Iniciar sesión</a>
+                        <a class="nav-link border-end border-2 px-3" href="{{ route('usuario.login') }}">Iniciar sesión</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link px-3" href="">Registrar usuario</a>
+                        <a class="nav-link px-3" href="{{ route('usuario.register') }}">Registrar usuario</a>
                     </li>
 
                 </ul>

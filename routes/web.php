@@ -5,6 +5,8 @@ use App\Http\Controllers\RutaController;
 use App\Http\Controllers\BBDDController;
 use App\Http\Controllers\EloquentController;
 use App\Http\Controllers\CRUDController;
+use App\Http\Controllers\AuthController;
+
 
 
 /*
@@ -47,3 +49,10 @@ Route::put('/videojuego/{videojuego}', [CRUDController::class, 'updateElement'])
 //Borrar
 Route::get('/videojuego/delete/select', [CRUDController::class, 'destroyselect'])->name('videojuego.delete.select');
 Route::post('/videojuego/delete/select', [CRUDController::class, 'destroyById'])->name('videojuego.delete.select.submit');
+
+//Registro y sesiones
+Route::get('/register', [AuthController::class, 'registerForm'])->name('usuario.register');
+Route::post('/register', [AuthController::class, 'register']) ->name ('usuario.register.submit');
+Route::get('/login', [AuthController::class, 'loginForm'])->name('usuario.login');
+Route::post('/login', [AuthController::class, 'login'])->name('usuario.login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
