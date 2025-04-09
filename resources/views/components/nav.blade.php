@@ -27,7 +27,8 @@
                             href="{{ route('videojuego.edit.select') }}">Editar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-end border-2 px-3" href="{{ route('videojuego.delete.select') }}">Borrar</a>
+                        <a class="nav-link border-end border-2 px-3"
+                            href="{{ route('videojuego.delete.select') }}">Borrar</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link border-end border-2 px-3" href="{{ route('generos') }}">Géneros</a>
@@ -38,17 +39,29 @@
                             nosotros</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link border-end border-2 px-3" href="{{ route('usuario.login') }}">Iniciar sesión</a>
-                    </li>
-                    <li class="nav-item me-2">
-                        <a class="nav-link px-3" href="{{ route('usuario.register') }}">Registrar usuario</a>
-                    </li>
 
-                </ul>
-
+                <ul class="navbar-nav ms-auto my-auto align-items-center">
+                    @auth
+                        <li class="nav-item border-end border-2 px-3 my-auto ">
+                            <p class="my-auto"> {{ Auth::user()->name }} </p>
+                        </li>
+                        <li class="nav-item mx-3 my-auto">
+                            <form method="post" action="{{ route('usuario.logout') }}" class="my-auto">
+                                @csrf
+                                <button type="submit" class="logout btn btn-outline-dark btn-sm">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    @else
+                        <li class="nav-item my-auto">
+                            <a class="nav-link border-end border-2 px-3 my-auto" href="{{ route('usuario.login') }}">Iniciar
+                                sesión</a>
+                        </li>
+                        <li class="nav-item my-auto">
+                            <a class="nav-link px-3 my-auto" href="{{ route('usuario.register') }}">Registrar usuario</a>
+                        </li>
+                    @endauth
                 </ul>
 
             </div>
+
 </nav>
