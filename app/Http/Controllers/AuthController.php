@@ -16,29 +16,39 @@ class AuthController extends Controller
     }
 
     // Procesa el formulario de registro y crea un nuevo usuario
+
     public function register(Request $request)
     {
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            /*
-            confirmed
-            The field under validation must have a matching field of {field}_confirmation. 
-            For example, if the field under validation is password, a matching password_confirmation 
-            field must be present in the input.
-            */
-        ]);
 
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        Auth::login($user); // Inicia sesión automáticamente después del registro
-
-        return redirect()->route('inicio')->with('success', 'Cuenta creada correctamente.');
+        try{
+            //dd($request->all());
+            $request->validate([
+                'name'     => 'required|string|max:255',
+                'email'    => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+                'rol'      => 'required|in:cliente,administrador',
+                /*
+                confirmed
+                The field under validation must have a matching field of {field}_confirmation. 
+                For example, if the field under validation is password, a matching password_confirmation 
+                field must be present in the input.
+                */
+            ]);
+    
+            $user = User::create([
+                'name'     => $request->name,
+                'email'    => $request->email,
+                'password' => Hash::make($request->password),
+                'rol'      => $request->rol,
+            ]);
+    
+            Auth::login($user); // Inicia sesión automáticamente después del registro
+    
+            return redirect()->route('inicio')->with('success', 'Cuenta creada correctamente.');
+        }catch (\Exception $e){
+            return redirect()->route('usuario.register')->with('failure', 'Hubo un problema al crear la cuenta. Intenta nuevamente.');
+        }
+        
     }
 
     // Muestra el formulario de inicio de sesión
