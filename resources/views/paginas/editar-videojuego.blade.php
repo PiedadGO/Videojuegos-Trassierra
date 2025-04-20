@@ -43,6 +43,16 @@
                 @enderror
                 <!-- pattern="^\d{4}$" title="Debe contener exactamente 4 dígitos" -->
             </div>
+            <div class="mb-3">
+                <p>Género/s:</p>
+            </div>
+            @foreach ($generos as $genero)
+                <div class="mb-3 form-check form-check-inline">
+                    <label for="genero_{{ $genero->id }}" class="form-check-label">{{ $genero->nombre }}</label>
+                    <input type="checkbox" class="form-check-input" id="genero_{{ $genero->id }}" name="generosSeleccionados[]"
+                        value="{{ $genero->id }}" {{ in_array($genero->id, $generosSeleccionados) ? 'checked' : '' }}>
+                </div>
+            @endforeach
             <div class="container d-flex justify-content-center w-50 mt-4">
                 <input type='submit' class='btn btn-primary w-100' value='Enviar'></input>
             </div>

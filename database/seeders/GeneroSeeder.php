@@ -15,11 +15,31 @@ class GeneroSeeder extends Seeder
     public function run(): void
     {
         DB::table('generos')->insert([
-            ['nombre' => 'Acción'],
-            ['nombre' => 'Aventura'],
-            ['nombre' => 'Rol'],
-            ['nombre' => 'Estrategia'],
-            ['nombre' => 'Deportes'],
+            [
+                'nombre' => 'Acción',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Aventura',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Rol',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Estrategia',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Deportes',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

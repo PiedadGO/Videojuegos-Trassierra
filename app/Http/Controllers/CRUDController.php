@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genero;
 use Illuminate\Http\Request;
 use App\Models\Videojuego;
 use Ramsey\Uuid\Type\Integer;
@@ -88,8 +89,22 @@ class CRUDController extends Controller
             'vj_id' => 'required|integer|min:1'
         ]);
         $id = $request->input('vj_id');
+
+        /*
+        Obtener datos a pasar al formulario del videojuego a editar
+         */
         $videojuego = Videojuego::findOrFail($id);
-        return view('paginas.editar-videojuego', ['videojuego' => $videojuego]);
+        $generos = Genero::all();
+        $generosSeleccionados = $videojuego->generos->pluck('id')->toArray();
+
+        return view(
+            'paginas.editar-videojuego',
+            [
+                'videojuego' => $videojuego,
+                'generos' => $generos,
+                'generosSeleccionados' => $generosSeleccionados //The pluck method retrieves all of the values for a given key
+            ]
+        );
     }
 
     public function updateElement(Request $request, Videojuego $videojuego)
@@ -116,6 +131,7 @@ class CRUDController extends Controller
         //return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
         //return redirect()->route('inicio', $videojuego->id)->with('success', "Videojuego $videojuego->nombre actualizado correctamente");
         if ($videojuego->save()) {
+            $videojuego->generos()->sync($request->input('generosSeleccionados', [])); // generos() es la relación definida en el Modelo Videojuego
             return redirect()
                 ->route('inicio', $videojuego->id)
                 ->with('success', "Videojuego $videojuego->nombre actualizado correctamente.");
@@ -146,19 +162,10 @@ class CRUDController extends Controller
             return redirect()->route('inicio')->with('failure', 'Acceso denegado. Has de iniciar sesión y tener rol de administrador para poder acceder a esta función.');
         }
     }
-
-
-    /*
-    public function destroyselect()
-    {
-        $videojuegos = Videojuego::all();
-        return view('paginas.seleccionar-borrar', ['videojuegos' => $videojuegos]);
-    }
-        */
-
     /**
      * 
      */
+
     public function destroyById(Request $request)
     {
         if (Auth::check()) {
@@ -166,16 +173,20 @@ class CRUDController extends Controller
                 $request->validate([
                     'vj_id' => 'required|integer|min:1'
                 ]);
+
                 $id = $request->input('vj_id');
-                $videojuego = Videojuego::findOrFail($id);
 
-                $videojuego->delete();
-
-                return redirect()->route('inicio')
-                    ->with('success', "Videojuego $videojuego->nombre eliminado correctamente.");
+                try {
+                    $videojuego = Videojuego::findOrFail($id);
+                    $videojuego->delete();
+                    return redirect()->route('inicio')
+                        ->with('success', "Videojuego $videojuego->nombre eliminado correctamente.");
+                } catch (\Exception $e) {
+                    return redirect()->route('inicio')
+                        ->with('failure', "⚠ Falló el proceso. Inténtalo de nuevo.");
+                }
             }
-        }
-        else{
+        } else {
             return redirect()->route('inicio')->with('failure', 'Inicia sesión como administrador para borrar.');
         }
     }
