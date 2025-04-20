@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('videojuego_genero', function (Blueprint $table) {
             $table->unsignedBigInteger('videojuego_id');
-        $table->unsignedBigInteger('genero_id');
+            $table->unsignedBigInteger('genero_id');
 
-        $table->primary(['videojuego_id', 'genero_id']);
+            $table->primary(['videojuego_id', 'genero_id']);
 
-        $table->foreign('videojuego_id')->references('id')->on('videojuegos');
-        $table->foreign('genero_id')->references('id')->on('generos');
+            $table->foreign('videojuego_id')->references('id')->on('videojuegos')->onDelete('cascade');
+            $table->foreign('genero_id')->references('id')->on('generos');
 
-        $table->timestamps();
+            $table->timestamps();
         });
     }
 

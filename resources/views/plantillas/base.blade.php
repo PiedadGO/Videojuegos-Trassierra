@@ -20,8 +20,8 @@
 
     @yield('contenido')
 
-    <footer class="py-5 text-center">
-        <div class="d-flex flex-column flex-sm-row justify-content-center py-4 my-4">
+    <footer class="py-2 text-center">
+        <div class="d-flex flex-column flex-sm-row justify-content-center my-2">
             <p class="ms-3 fs-6 fw-bold">&copy; 2025 Piedad García - IES Trassierra.</p>
             <ul class="list-unstyled d-flex flex-sm-row justify-content-center mx-5">
                 <li class="ms-3 fs-6"><a class="link-body-emphasis" href="https://x.com/"><i

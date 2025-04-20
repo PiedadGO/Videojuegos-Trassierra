@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Videojuego;
 use Ramsey\Uuid\Type\Integer;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CRUDController extends Controller
 {
@@ -130,24 +131,52 @@ class CRUDController extends Controller
      */
     public function destroyselect()
     {
+        try {
+            if (Auth::check()) {
+                if (Auth::user()->rol === 'administrador') {
+                    $videojuegos = Videojuego::all();
+                    return view('paginas.seleccionar-borrar', ['videojuegos' => $videojuegos]);
+                } else {
+                    return redirect()->route('inicio')->with('failure', 'Acceso denegado. Solo los administradores pueden acceder a esta función.');
+                }
+            } else {
+                return redirect()->route('inicio')->with('failure', 'Acceso denegado. No has iniciado sesión.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('inicio')->with('failure', 'Acceso denegado. Has de iniciar sesión y tener rol de administrador para poder acceder a esta función.');
+        }
+    }
+
+
+    /*
+    public function destroyselect()
+    {
         $videojuegos = Videojuego::all();
         return view('paginas.seleccionar-borrar', ['videojuegos' => $videojuegos]);
     }
+        */
 
     /**
      * 
      */
     public function destroyById(Request $request)
     {
-        $request->validate([
-            'vj_id' => 'required|integer|min:1'
-        ]);
-        $id = $request->input('vj_id');
-        $videojuego = Videojuego::findOrFail($id);
+        if (Auth::check()) {
+            if (Auth::user()->rol === 'administrador') {
+                $request->validate([
+                    'vj_id' => 'required|integer|min:1'
+                ]);
+                $id = $request->input('vj_id');
+                $videojuego = Videojuego::findOrFail($id);
 
-        $videojuego->delete();
+                $videojuego->delete();
 
-        return redirect()->route('inicio')
-            ->with('success', "Videojuego $videojuego->nombre eliminado correctamente.");
+                return redirect()->route('inicio')
+                    ->with('success', "Videojuego $videojuego->nombre eliminado correctamente.");
+            }
+        }
+        else{
+            return redirect()->route('inicio')->with('failure', 'Inicia sesión como administrador para borrar.');
+        }
     }
 }

@@ -46,7 +46,7 @@ class AuthController extends Controller
     
             return redirect()->route('inicio')->with('success', 'Cuenta creada correctamente.');
         }catch (\Exception $e){
-            return redirect()->route('usuario.register')->with('failure', 'Hubo un problema al crear la cuenta. Intenta nuevamente.');
+            return redirect()->route('usuario.register')->with('failure', 'Hubo un problema al crear la cuenta. Inténtalo de nuevo.');
         }
         
     }
