@@ -11,7 +11,7 @@
     @if ($errors->any())
         <div class="container d-flex justify-content-center align-items-start mb-0 ">
             <div class=" text-center w-50 alert alert-danger">
-                <ul class="mb-0">
+                <ul class="list-unstyled mb-0">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach

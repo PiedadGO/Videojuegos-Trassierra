@@ -111,36 +111,39 @@ class CRUDController extends Controller
     {
         $anioActual = Carbon::now()->year;
 
-        $request->validate([
-            'titulo' => 'required|max:100', // 100 caracteres
-            'desarrollador' => 'required|max:50', // 50 caracteres
-            'anio_lanzamiento' => [ //entero de 4 dígitos que no exceda al año actual
-                'required',
-                'digits:4',
-                'integer',
-                'max:' . $anioActual
+        $validatedData = $request->validate(
+            [
+                'titulo' => 'required|max:100', // 100 caracteres
+                'desarrollador' => 'required|max:50', // 50 caracteres
+                'anio_lanzamiento' => [ //entero de 4 dígitos que no exceda al año actual
+                    'required',
+                    'regex:/^\d{4}$/',
+                    'max:' . $anioActual
+                ]
+            ],
+            [
+                'titulo.max' => 'El título no puede exceder de 100 caracteres',
+                'desarrollador.max' => 'El nombre del desarrollador no puede exceder de 50 caracteres',
+                'anio_lanzamiento.max' => 'El año de lanzamiento no puede ser posterior al actual'
+
             ]
-        ]);
+        );
+        //dd('validado');
 
-        $videojuego->nombre = $request->input('titulo');
-        $videojuego->desarrollador = $request->input('desarrollador');
-        $videojuego->anio_lanzamiento = $request->input('anio_lanzamiento');
-
-        $videojuego->save();
+        $videojuego->nombre = $validatedData['titulo'];
+        $videojuego->desarrollador = $validatedData['desarrollador'];
+        $videojuego->anio_lanzamiento = $validatedData['anio_lanzamiento'];
 
         //return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
         //return redirect()->route('inicio', $videojuego->id)->with('success', "Videojuego $videojuego->nombre actualizado correctamente");
-        if ($videojuego->save()) {
-            $videojuego->generos()->sync($request->input('generosSeleccionados', [])); // generos() es la relación definida en el Modelo Videojuego
-            return redirect()
-                ->route('inicio', $videojuego->id)
-                ->with('success', "Videojuego $videojuego->nombre actualizado correctamente.");
-        } else {
-            return redirect()
-                ->route('inicio')
-                ->with('failure', "Hubo un problema al actualizar el videojuego.");
-        }
+
+        $videojuego->save();
+        $videojuego->generos()->sync($request->input('generosSeleccionados', [])); // generos() es la relación definida en el Modelo Videojuego
+        return redirect()
+            ->route('inicio', $videojuego->id)
+            ->with('success', "Videojuego $videojuego->nombre actualizado correctamente.");
     }
+
 
     /**
      * 

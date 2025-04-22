@@ -52,7 +52,7 @@ Route::post('/videojuego/delete/select', [CRUDController::class, 'destroyById'])
 
 //Registro y sesiones
 Route::get('/register', [AuthController::class, 'registerForm'])->name('usuario.register');
-Route::post('/register', [AuthController::class, 'register']) ->name ('usuario.register.submit');
+Route::post('/register', [AuthController::class, 'register2']) ->name ('usuario.register.submit');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('usuario.login');
 Route::post('/login', [AuthController::class, 'login'])->name('usuario.login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('usuario.logout');
