@@ -19,3 +19,21 @@ table{
     font-family: var(--fuente-auxiliar);
 }
 
+@media (max-width: 991px) {
+    /* Alinear a la derecha todos los elementos en pantallas pequeñas*/
+    #navbarNav .navbar-nav.ms-auto {
+        justify-content: flex-end;
+        width: 100%;
+    }
+    #navbarNav .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    #navbarNav .navbar-nav .nav-item {
+        text-align: right;
+    }
+    #navbarNav .navbar-nav li:last-child {
+        border-right: 2px solid #dee2e6; 
+    }
+}
