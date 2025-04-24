@@ -3,3 +3,19 @@
     background-size: cover; 
     background-position: center;
 }*/
+:root {
+    --fuente-principal: 'Bungee', sans-serif;
+    --fuente-secundaria: 'Orbitron', sans-serif;
+    --fuente-auxiliar: 'Lato', sans-serif;
+}
+body{
+    font-family: var(--fuente-secundaria);
+}
+
+h1, h2, h3 {
+    font-family: var(--fuente-principal);
+}
+table{
+    font-family: var(--fuente-auxiliar);
+}
+

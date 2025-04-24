@@ -4,11 +4,8 @@
 
 @section('contenido')
 
-    <div class="text-center my-4">
-        <h2 class="fw-bold">Inicio</h2>
-    </div>
 
-    <div class="text-center">
+    <div class="text-center mt-5">
         <h2 class="fw-semibold">Bienvenido a La web de videojuegos Trassierra</h2>
     </div>
 
