@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse d-flex flex-wrap" id="navbarNav">
             <div class="container nav me-auto">
                 <a href="{{ route('inicio') }}"
-                    class="d-flex align-items-center mb-2 me-3 mb-lg-0 text-white text-decoration-none">
+                    class="mb-2 me-3 mb-lg-0 text-white text-decoration-none">
                     <img src="{{ asset('images/game_crush.jpg') }}" alt="Logo" width="auto" height="40"></a>
                 <ul class="navbar-nav">
                     <li class="nav-item">

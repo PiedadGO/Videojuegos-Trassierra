@@ -31,28 +31,28 @@ Route::get('/', [RutaController::class, 'home'])->name('inicio');
 Route::get('/acerca-de', [RutaController::class, 'informacion'])->name('sobre-nosotros');
 
 //ver
-Route::get('/videojuegos', [BBDDController::class, 'catalogo'])->name('mostrar-videojuegos');
+Route::get('/catálogo', [BBDDController::class, 'catalogo'])->name('mostrar-videojuegos');
 
 //Añadir
-Route::get('/agregar', [BBDDController::class, 'crear']) ->name('anadir');
-Route::post('/agregar', [BBDDController::class, 'almacenar']) ->name('guardar-juego');
+Route::get('/añadir', [BBDDController::class, 'crear']) ->name('anadir');
+Route::post('/añadir', [BBDDController::class, 'almacenar']) ->name('guardar-juego');
 
 //Géneros
 Route::get('/generos', [EloquentController::class, 'tipo'])->name('generos');
 
 //Editar
-Route::get('/videojuego/edit/select', [CRUDController::class, 'editForm']) ->name('videojuego.edit.select'); //
-Route::post('/videojuego/edit/select', [CRUDController::class, 'editElement']) ->name('videojuego.edit.select.submit');
-Route::put('/videojuego/{videojuego}', [CRUDController::class, 'updateElement']) ->name('videojuego.update');
+Route::get('/editar', [CRUDController::class, 'editForm']) ->name('videojuego.edit.select'); //
+Route::post('/editar', [CRUDController::class, 'editElement']) ->name('videojuego.edit.select.submit');
+Route::put('/editar/{videojuego}', [CRUDController::class, 'updateElement']) ->name('videojuego.update');
 
 
 //Borrar
-Route::get('/videojuego/delete/select', [CRUDController::class, 'destroyselect'])->name('videojuego.delete.select');
-Route::post('/videojuego/delete/select', [CRUDController::class, 'destroyById'])->name('videojuego.delete.select.submit');
+Route::get('/borrar/select', [CRUDController::class, 'destroyselect'])->name('videojuego.delete.select');
+Route::post('/borrar/select', [CRUDController::class, 'destroyById'])->name('videojuego.delete.select.submit');
 
 //Registro y sesiones
-Route::get('/register', [AuthController::class, 'registerForm'])->name('usuario.register');
-Route::post('/register', [AuthController::class, 'register2']) ->name ('usuario.register.submit');
-Route::get('/login', [AuthController::class, 'loginForm'])->name('usuario.login');
-Route::post('/login', [AuthController::class, 'login'])->name('usuario.login.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('usuario.logout');
+Route::get('/registro', [AuthController::class, 'registerForm'])->name('usuario.register');
+Route::post('/registro', [AuthController::class, 'register2']) ->name ('usuario.register.submit');
+Route::get('/accesso', [AuthController::class, 'loginForm'])->name('usuario.login');
+Route::post('/acceso', [AuthController::class, 'login'])->name('usuario.login.submit');
+Route::post('/cierre', [AuthController::class, 'logout'])->name('usuario.logout');
