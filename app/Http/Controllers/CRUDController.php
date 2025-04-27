@@ -110,34 +110,29 @@ class CRUDController extends Controller
 
     public function updateElement(Request $request, Videojuego $videojuego)
     {
-        $anioActual = Carbon::now()->year;
+        //$anioActual = Carbon::now()->year;
 
-        $validatedData = $request->validate(
+        $request->validate(
             [
                 'titulo' => 'required|max:100', // 100 caracteres
                 'desarrollador' => 'required|max:50', // 50 caracteres
-                'anio_lanzamiento' => [ //entero de 4 dígitos que no exceda al año actual
-                    'required',
-                    'regex:/^\d{4}$/',
-                    'max:' . $anioActual
-                ]
+                'anio_lanzamiento' => 'required|integer|digits:4|before_or_equal:' . date('Y'),
             ],
             [
-                'titulo.required' => 'El título es obligatorio',
-                'titulo.max' => 'El título no puede exceder de 100 caracteres',
-                'desarrollador.required' => 'El desarrollador es obligatorio',
-                'desarrollador.max' => 'El nombre del desarrollador no puede exceder de 50 caracteres',
-                'anio_lanzamiento.required' => 'El año de lanzamiento es obligatorio',
-                'anio_lanzamiento.regex' => 'El año debe ser un número de 4 dígitos',
-                'anio_lanzamiento.lte' => 'El año de lanzamiento no puede ser posterior al actual (' . $anioActual . ')'
+                'titulo.required' => 'El título es obligatorio.',
+                'titulo.max' => 'El título no puede tener más de 100 caracteres.',
+                'desarrollador.required' => 'El nombre del desarrollador es obligatorio.',
+                'desarrollador.max' => 'El nombre del desarrollador no puede tener más de 50 caracteres.',
+                'anio_lanzamiento.required' => 'El año de lanzamiento es obligatorio.',
+                'anio_lanzamiento.integer' => 'El año de lanzamiento debe ser un número entero.',
+                'anio_lanzamiento.digits' => 'El año de lanzamiento debe tener 4 dígitos.',
+                'anio_lanzamiento.before_or_equal' => 'El año de lanzamiento no puede ser posterior al año actual.',
 
             ]
         );
-        //dd('validado');
-
-        $videojuego->nombre = $validatedData['titulo'];
-        $videojuego->desarrollador = $validatedData['desarrollador'];
-        $videojuego->anio_lanzamiento = $validatedData['anio_lanzamiento'];
+        $videojuego->nombre = 'titulo';
+        $videojuego->desarrollador = 'desarrollador';
+        $videojuego->anio_lanzamiento = 'anio_lanzamiento';
 
         //return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
         //return redirect()->route('inicio', $videojuego->id)->with('success', "Videojuego $videojuego->nombre actualizado correctamente");
