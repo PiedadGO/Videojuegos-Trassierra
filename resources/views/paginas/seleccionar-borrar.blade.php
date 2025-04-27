@@ -10,8 +10,9 @@
     <div class="container d-flex justify-content-center">
         @if (count($videojuegos) > 0)
             <form action='{{ route('videojuego.delete.select.submit') }}' method='POST'
-                class="bg-light p-4 rounded-4 w-50 mt-5">
+                class="bg-light p-4 rounded-4 vw-50 mt-5">
                 @csrf
+                @method('DELETE')
                 <div class="row">
                         <label for='vj_id' class='form-label mb-3 fs-5'>Videojuego a borrar:</label>
                         <select id='vj_id' name='vj_id' class='form-select' required>
@@ -22,8 +23,8 @@
                         </select>
                     </div>
 
-                    <div class="container d-flex justify-content-center w-50 mt-4">
-                        <input type='submit' class='btn btn-primary w-100' value='Enviar'></input>
+                    <div class="container d-flex justify-content-center vw-50 mt-4">
+                        <input type='submit' class='btn btn-primary ' value='Enviar'></input>
                     </div>
                 </div>
             </form>

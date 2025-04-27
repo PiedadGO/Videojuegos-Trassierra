@@ -7,7 +7,7 @@
         <h2 class="text-center mb-4 fw-bold">Registrar videojuego</h2>
 
         <div class="container d-flex justify-content-center">
-            <form method="post" action="{{ route('guardar-juego') }}" class="bg-light p-4 rounded-4  mt-5">
+            <form method="POST" action="{{ route('guardar-juego') }}" class="bg-light p-4 rounded-4  mt-5">
                 @csrf
 
                 <div class="mb-3">

@@ -9,7 +9,7 @@
     </div>
 
     <div class="container d-flex justify-content-center">
-        <div class="alert bg-dark text-white text-center w-50 mt-5" role="alert">
+        <div class="alert bg-dark text-white text-center vw-50 mt-5" role="alert">
             <h4 class="alert-heading ">Videojuego {{ $videojuego->nombre }} editado</h4>
         </div>
     </div>

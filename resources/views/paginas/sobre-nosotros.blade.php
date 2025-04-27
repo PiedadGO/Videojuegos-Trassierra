@@ -4,7 +4,7 @@
 
 @section('contenido')
     <div class="container d-flex justify-content-center">
-        <div class="card shadow-lg text-center w-50">
+        <div class="card shadow-lg text-center vw-50">
             <div class="card-header bg-dark text-white">
                 <h2 class="mb-0">Sobre nosotros</h2>
             </div>

@@ -15,13 +15,13 @@
 
     <div class="d-flex justify-content-center my-4">
         @if (session('success'))
-            <div class='text-center w-25 ms-2 alert alert-success'>
+            <div class='text-center vw-25 ms-2 alert alert-success'>
                 {{ session('success') }}
             </div>
         @endif
 
         @if (session('failure'))
-            <div class='text-center w-25 ms-2 alert alert-danger'>
+            <div class='text-center vw-25 ms-2 alert alert-danger'>
                 {{ session('failure') }}
             </div>
         @endif

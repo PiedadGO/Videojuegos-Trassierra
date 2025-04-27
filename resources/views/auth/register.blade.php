@@ -10,7 +10,7 @@
 
     @if ($errors->any())
         <div class="container d-flex justify-content-center align-items-start mb-0 ">
-            <div class=" text-center w-50 alert alert-danger">
+            <div class=" text-center vw-50 alert alert-danger">
                 <ul class="list-unstyled mb-0">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -21,7 +21,7 @@
     @endif
 
     <div class="container d-flex justify-content-center">
-        <form method="POST" action="{{ route('usuario.register.submit') }}" class="bg-light p-4 rounded-4 mt-5 w-50">
+        <form method="POST" action="{{ route('usuario.register.submit') }}" class="bg-light p-4 rounded-4 mt-5 vw-50">
             @csrf
 
             <div class="mb-3">

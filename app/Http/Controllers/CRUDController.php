@@ -8,6 +8,7 @@ use App\Models\Videojuego;
 use Ramsey\Uuid\Type\Integer;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CRUDController extends Controller
 {
@@ -122,9 +123,13 @@ class CRUDController extends Controller
                 ]
             ],
             [
+                'titulo.required' => 'El título es obligatorio',
                 'titulo.max' => 'El título no puede exceder de 100 caracteres',
+                'desarrollador.required' => 'El desarrollador es obligatorio',
                 'desarrollador.max' => 'El nombre del desarrollador no puede exceder de 50 caracteres',
-                'anio_lanzamiento.max' => 'El año de lanzamiento no puede ser posterior al actual'
+                'anio_lanzamiento.required' => 'El año de lanzamiento es obligatorio',
+                'anio_lanzamiento.regex' => 'El año debe ser un número de 4 dígitos',
+                'anio_lanzamiento.lte' => 'El año de lanzamiento no puede ser posterior al actual (' . $anioActual . ')'
 
             ]
         );
@@ -137,10 +142,12 @@ class CRUDController extends Controller
         //return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
         //return redirect()->route('inicio', $videojuego->id)->with('success', "Videojuego $videojuego->nombre actualizado correctamente");
 
+        $slug = Str::of($videojuego->nombre)->slug('-');
+
         $videojuego->save();
         $videojuego->generos()->sync($request->input('generosSeleccionados', [])); // generos() es la relación definida en el Modelo Videojuego
         return redirect()
-            ->route('inicio', $videojuego->id)
+            ->route('inicio', $slug)
             ->with('success', "Videojuego $videojuego->nombre actualizado correctamente.");
     }
 

@@ -40,6 +40,11 @@ class GeneroSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'nombre' => 'Otros',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ]);
     }
 }

@@ -43,16 +43,16 @@ Route::get('/generos', [EloquentController::class, 'tipo'])->name('generos');
 //Editar
 Route::get('/editar', [CRUDController::class, 'editForm']) ->name('videojuego.edit.select'); //
 Route::post('/editar', [CRUDController::class, 'editElement']) ->name('videojuego.edit.select.submit');
-Route::put('/editar/{videojuego}', [CRUDController::class, 'updateElement']) ->name('videojuego.update');
+Route::put('/editar/{slug}', [CRUDController::class, 'updateElement']) ->name('videojuego.update');
 
 
 //Borrar
-Route::get('/borrar/select', [CRUDController::class, 'destroyselect'])->name('videojuego.delete.select');
-Route::post('/borrar/select', [CRUDController::class, 'destroyById'])->name('videojuego.delete.select.submit');
+Route::get('/borrar', [CRUDController::class, 'destroyselect'])->name('videojuego.delete.select');
+Route::delete('/borrar', [CRUDController::class, 'destroyById'])->name('videojuego.delete.select.submit');
 
 //Registro y sesiones
 Route::get('/registro', [AuthController::class, 'registerForm'])->name('usuario.register');
-Route::post('/registro', [AuthController::class, 'register2']) ->name ('usuario.register.submit');
-Route::get('/accesso', [AuthController::class, 'loginForm'])->name('usuario.login');
-Route::post('/acceso', [AuthController::class, 'login'])->name('usuario.login.submit');
+Route::post('/registro_', [AuthController::class, 'register2']) ->name ('usuario.register.submit');
+Route::get('/acceso', [AuthController::class, 'loginForm'])->name('usuario.login');
+Route::get('/acceso_', [AuthController::class, 'login'])->name('usuario.login.submit');
 Route::post('/cierre', [AuthController::class, 'logout'])->name('usuario.logout');

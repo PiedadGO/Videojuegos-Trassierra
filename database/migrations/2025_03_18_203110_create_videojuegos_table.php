@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('videojuegos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('nombre');
-            $table->string('desarrollador');
-            $table->string('fecha_lanzamiento');
+            $table->string('nombre', 100); 
+            $table->string('desarrollador', 50); 
+            $table->integer('fecha_lanzamiento');
         });
     }
 
