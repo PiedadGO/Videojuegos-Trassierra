@@ -84,17 +84,11 @@ class CRUDController extends Controller
     /**
      * 
      */
-    public function editElement(Request $request)
+    public function editElement(Request $request, Videojuego $videojuego)
     {
-        $request->validate([
-            'vj_id' => 'required|integer|min:1'
-        ]);
-        $id = $request->input('vj_id');
-
         /*
         Obtener datos a pasar al formulario del videojuego a editar
          */
-        $videojuego = Videojuego::findOrFail($id);
         $generos = Genero::all();
         $generosSeleccionados = $videojuego->generos->pluck('id')->toArray();
 
@@ -109,37 +103,30 @@ class CRUDController extends Controller
     }
 
     public function updateElement(Request $request, Videojuego $videojuego)
-    {
-        //$anioActual = Carbon::now()->year;
-        $request->validate(
-            [
-                'titulo' => 'required|max:100', // 100 caracteres
-                'desarrollador' => 'required|max:50', // 50 caracteres
-                'anio_lanzamiento' => 'required|integer|digits:4|before_or_equal:' . date('Y'),
-            ],
-            [
-                'titulo.required' => 'El título es obligatorio.',
-                'titulo.max' => 'El título no puede tener más de 100 caracteres.',
-                'desarrollador.required' => 'El nombre del desarrollador es obligatorio.',
-                'desarrollador.max' => 'El nombre del desarrollador no puede tener más de 50 caracteres.',
-                'anio_lanzamiento.required' => 'El año de lanzamiento es obligatorio.',
-                'anio_lanzamiento.integer' => 'El año de lanzamiento debe ser un número entero.',
-                'anio_lanzamiento.digits' => 'El año de lanzamiento debe tener 4 dígitos.',
-                'anio_lanzamiento.before_or_equal' => 'El año de lanzamiento no puede ser posterior al año actual.',
+    {   
+        $validated = $request->validate([
+            'titulo' => 'required|max:100',
+            'desarrollador' => 'required|max:50',
+            'anio_lanzamiento' => 'required|integer|digits:4|before_or_equal:' . date('Y'),
+        ], [
+            'titulo.required' => 'El título es obligatorio.',
+            'titulo.max' => 'El título no puede tener más de 100 caracteres.',
+            'desarrollador.required' => 'El nombre del desarrollador es obligatorio.',
+            'desarrollador.max' => 'El nombre del desarrollador no puede tener más de 50 caracteres.',
+            'anio_lanzamiento.required' => 'El año de lanzamiento es obligatorio.',
+            'anio_lanzamiento.integer' => 'El año de lanzamiento debe ser un número entero.',
+            'anio_lanzamiento.digits' => 'El año de lanzamiento debe tener 4 dígitos.',
+            'anio_lanzamiento.before_or_equal' => 'El año de lanzamiento no puede ser posterior al año actual.',
+        ]);
 
-            ]
-        );
-
-        $videojuego->nombre = $request->input('titulo');
-        $videojuego->desarrollador = $request->input('desarrollador');
-        $videojuego->anio_lanzamiento = $request->input('anio_lanzamiento');
-
-        //return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
-        //return redirect()->route('inicio', $videojuego->id)->with('success', "Videojuego $videojuego->nombre actualizado correctamente");
+        $videojuego->nombre = $validated['titulo'];
+        $videojuego->desarrollador = $validated['desarrollador'];
+        $videojuego->anio_lanzamiento = $validated['anio_lanzamiento'];
 
         $slug = Str::of($videojuego->nombre)->slug('-');
         $videojuego->save();
-        $videojuego->generos()->sync($request->input('generosSeleccionados', [])); // generos() es la relación definida en el Modelo Videojuego
+        $videojuego->generos()->sync($request->input('generosSeleccionados', []));
+        
         return redirect()
             ->route('inicio', $slug)
             ->with('success', "Videojuego $videojuego->nombre actualizado correctamente.");
