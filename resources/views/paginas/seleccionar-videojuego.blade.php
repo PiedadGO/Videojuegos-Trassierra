@@ -7,26 +7,29 @@
         <h2 class="fw-bold">Editar videojuego</h2>
     </div>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container d-flex justify-content-center">
         @if (count($videojuegos) > 0)
-            <form action='{{ route('videojuego.edit.select.submit') }}' method='POST'
+            <div
                 class="bg-light p-4 rounded-4 vw-50 mt-5">
                 @csrf
                 <div class="row">
-                        <label for='vj_id' class='form-label mb-3 fs-5'>Videojuego a editar:</label>
-                        <select id='vj_id' name='vj_id' class='form-select' required>
-                            @foreach ($videojuegos as $videojuego)
-                                <option value="{{ $videojuego->id }}">{{ $videojuego->id }} - {{ $videojuego->nombre }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="container d-flex justify-content-center vw-50 mt-4">
-                        <input type='submit' class='btn btn-primary' value='Enviar'></input>
-                    </div>
+                    @foreach ($videojuegos as $videojuego)
+                        <a href="{{ route('videojuego.edit.form', ['videojuego' => $videojuego->id]) }}">
+                            {{ $videojuego->id }} - {{ $videojuego->nombre }}
+                        </a>
+                    @endforeach
                 </div>
-            </form>
+            </div>
         @else
             <div class="alert alert-warning text-center">
                 ¡No hay videojuegos registrados!

@@ -42,8 +42,9 @@ Route::get('/generos', [EloquentController::class, 'tipo'])->name('generos');
 
 //Editar
 Route::get('/editar', [CRUDController::class, 'editForm']) ->name('videojuego.edit.select'); //
-Route::post('/editar', [CRUDController::class, 'editElement']) ->name('videojuego.edit.select.submit');
-Route::put('/editar/{slug}', [CRUDController::class, 'updateElement']) ->name('videojuego.update');
+// Route::post('/editar', [CRUDController::class, 'editElement']) ->name('videojuego.edit.select.submit');
+Route::get('/editar/{videojuego}', [CRUDController::class, 'editElement']) ->name('videojuego.edit.form');
+Route::put('/editar/{videojuego}', [CRUDController::class, 'updateElement']) ->name('videojuego.update');
 
 
 //Borrar
