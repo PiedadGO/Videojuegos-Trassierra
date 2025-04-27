@@ -111,7 +111,6 @@ class CRUDController extends Controller
     public function updateElement(Request $request, Videojuego $videojuego)
     {
         //$anioActual = Carbon::now()->year;
-
         $request->validate(
             [
                 'titulo' => 'required|max:100', // 100 caracteres
@@ -130,22 +129,21 @@ class CRUDController extends Controller
 
             ]
         );
-        $videojuego->nombre = 'titulo';
-        $videojuego->desarrollador = 'desarrollador';
-        $videojuego->anio_lanzamiento = 'anio_lanzamiento';
+
+        $videojuego->nombre = $request->input('titulo');
+        $videojuego->desarrollador = $request->input('desarrollador');
+        $videojuego->anio_lanzamiento = $request->input('anio_lanzamiento');
 
         //return view('paginas.confirmar-edicion', ['videojuego' => $videojuego]);
         //return redirect()->route('inicio', $videojuego->id)->with('success', "Videojuego $videojuego->nombre actualizado correctamente");
 
         $slug = Str::of($videojuego->nombre)->slug('-');
-
         $videojuego->save();
         $videojuego->generos()->sync($request->input('generosSeleccionados', [])); // generos() es la relación definida en el Modelo Videojuego
         return redirect()
             ->route('inicio', $slug)
             ->with('success', "Videojuego $videojuego->nombre actualizado correctamente.");
     }
-
 
     /**
      * 
